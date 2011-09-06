@@ -28,6 +28,14 @@ module ActiveAdmin
           localize(object, :format => :long)
         when ActiveRecord::Base
           auto_link(object)
+        when Hash
+          out = ""
+          object.each_pair do |k,v|
+            out = "<strong>#{I18n.t("parameter")}:</strong> #{k}, <strong>#{I18n.t("value")}</strong>: #{pretty_format(v)}<br>"
+          end
+          out
+        when Array
+          object.inspect
         else
           display_name(object)
         end
